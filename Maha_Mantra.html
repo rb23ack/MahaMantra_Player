@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hare Krsna New Year Player</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to top, #ffeaa7, #74b9ff);
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+        .cd-player {
+            position: relative;
+            margin: 0 auto;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            background-image: url('RadhaKrsna_with_HDG.jpg');
+            background-size: cover;
+        }
+
+        .cd-player.rotating {
+            animation: spin 5s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .prabhupada {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-image: url('HDG_Srila_Prabhupada.jpg');
+            background-size: cover;
+            border: 3px solid white;
+        }
+
+        .controls {
+            margin-top: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #6c5ce7;
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .button:hover {
+            background-color: #a29bfe;
+        }
+
+        .envelope {
+            margin-top: 30px;
+            width: 100px;
+            height: 80px;
+            background: #d63031;
+            position: relative;
+            margin: 30px auto;
+            cursor: pointer;
+        }
+
+        .envelope:before,
+        .envelope:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 50px 40px 50px;
+            border-color: transparent transparent #e74c3c transparent;
+        }
+
+        .envelope:before {
+            left: 0;
+        }
+
+        .envelope:after {
+            right: 0;
+        }
+
+        .message {
+            display: none;
+            font-size: 20px;
+            color: #2d3436;
+            margin-top: 20px;
+        }
+
+        .flowers {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+            display: none;
+        }
+
+        .flower {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: pink;
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(255, 182, 193, 0.8);
+            animation: fall 3s linear infinite;
+        }
+
+        .flower::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 5px;
+            width: 5px;
+            height: 10px;
+            background-color: #228b22;
+            border-radius: 2px;
+        }
+
+        @keyframes fall {
+            from {
+                transform: translateY(-100%) rotate(0deg);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(100%) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Happy New Year 2025!</h1>
+    <p>Srila Prabhupada says every year is a new year for us since Krsna is always new, fresh and blissful.</p>
+    <h2>Hare Krsna Maha Mantra</h2>
+
+    <div class="cd-player" id="cdPlayer">
+        <div class="prabhupada"></div>
+    </div>
+
+    <div class="controls">
+        <button class="button" id="play">Play</button>
+        <button class="button" id="pause">Pause</button>
+        <button class="button" id="replay">Replay</button>
+    </div>
+
+    <div class="envelope" id="envelope"></div>
+
+    <div class="message" id="message">
+        Hare Krsna Hare Krsna Krsna Krsna Hare Hare<br>
+        Hare Rama Hare Rama Rama Rama Hare Hare
+    </div>
+
+    <div class="flowers" id="flowers"></div>
+
+    <audio id="mantra" src="Hare_Krsna_Maha_Mantra.mp3"></audio>
+
+    <script>
+        const playButton = document.getElementById('play');
+        const pauseButton = document.getElementById('pause');
+        const replayButton = document.getElementById('replay');
+        const envelope = document.getElementById('envelope');
+        const message = document.getElementById('message');
+        const mantraAudio = document.getElementById('mantra');
+        const cdPlayer = document.getElementById('cdPlayer');
+        const flowersContainer = document.getElementById('flowers');
+
+        playButton.addEventListener('click', () => {
+            mantraAudio.play();
+            cdPlayer.classList.add('rotating');
+        });
+
+        pauseButton.addEventListener('click', () => {
+            mantraAudio.pause();
+            cdPlayer.classList.remove('rotating');
+        });
+
+        replayButton.addEventListener('click', () => {
+            mantraAudio.currentTime = 0;
+            mantraAudio.play();
+            cdPlayer.classList.add('rotating');
+        });
+
+        envelope.addEventListener('click', () => {
+            message.style.display = 'block';
+            mantraAudio.play();
+            cdPlayer.classList.add('rotating');
+            showFlowers();
+        });
+
+        function showFlowers() {
+            flowersContainer.style.display = 'block';
+            for (let i = 0; i < 50; i++) {
+                const flower = document.createElement('div');
+                flower.classList.add('flower');
+                flower.style.left = Math.random() * 100 + 'vw';
+                flower.style.animationDuration = Math.random() * 2 + 3 + 's';
+                flowersContainer.appendChild(flower);
+                setTimeout(() => flower.remove(), 3000);
+            }
+            setTimeout(() => {
+                flowersContainer.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
