@@ -9,6 +9,6 @@
 - There are a few more bits of work still needed to be added. This project has been made on the ocassion of New Year Eve 2024 and New Year 2025!
 
 - There are a few more bits of work to be added in the repository. Work in progres.   
-- More bits of work will be added later. 
+- More bits of work will be added later.     
   
    
